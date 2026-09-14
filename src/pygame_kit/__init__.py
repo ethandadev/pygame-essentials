@@ -14,6 +14,9 @@ from .ui import (
     Button, Checkbox, Dropdown, Label, ProgressBar, Slider, TextInput, Toggle,
     Widget, resolve_font,
 )
+from .animation import Animation, AnimationSet, Spritesheet
+from .camera import Camera
+from .particles import Particle, ParticleEmitter
 from .timing import Cooldown, Timer
 
 __version__ = "0.1.0"
@@ -25,4 +28,6 @@ __all__ = [
     "Checkbox", "Toggle", "Dropdown", "ProgressBar",
     # Time
     "Timer", "Cooldown",
+    # Graphics
+    "Spritesheet", "Animation", "AnimationSet", "Camera", "ParticleEmitter", "Particle",
 ]
