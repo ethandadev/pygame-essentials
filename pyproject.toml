@@ -4,28 +4,49 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygame-kit"
-version = "0.1.0"
+dynamic = ["version"]  # read from pygame_kit.__version__
 description = "Handy, well-documented building blocks for pygame games: UI widgets, timers, animation, camera, particles, save data and a debug overlay."
 readme = "README.md"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "ethandadev" }]
 requires-python = ">=3.9"
 dependencies = ["pygame>=2.5"]
-keywords = ["pygame", "game", "ui", "widgets", "gamedev"]
+keywords = ["pygame", "game", "gamedev", "ui", "widgets", "gui", "camera", "particles", "animation", "spritesheet"]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Games/Entertainment",
     "Topic :: Software Development :: Libraries :: pygame",
+    "Typing :: Typed",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "build", "twine"]
 
 [project.urls]
 Homepage = "https://github.com/ethandadev/pygame-kit"
+Documentation = "https://github.com/ethandadev/pygame-kit#readme"
+Changelog = "https://github.com/ethandadev/pygame-kit/blob/main/CHANGELOG.md"
+Issues = "https://github.com/ethandadev/pygame-kit/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "pygame_kit.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+pygame_kit = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "src/pygame_kit"]

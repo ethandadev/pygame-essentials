@@ -52,6 +52,7 @@ class Checkbox(Widget):
     Attributes:
         checked (bool): Whether it is checked. You can set it from code (this
             does **not** call ``on_change``).
+        label (str): The label text. Changing it resizes the widget.
 
     Example::
 
@@ -81,7 +82,7 @@ class Checkbox(Widget):
         enabled: bool = True,
     ) -> None:
         self.font = resolve_font(font, font_size)
-        self.label = label
+        self._label = str(label)
         self.label_color = label_color
         self.label_gap = label_gap
         self.box_size = self._control_size(size)
@@ -92,6 +93,16 @@ class Checkbox(Widget):
         self.check_color = check_color
         self.border_color = border_color
         self.on_change = on_change
+
+    @property
+    def label(self) -> str:
+        """The text next to the box. Changing it also resizes the clickable area."""
+        return self._label
+
+    @label.setter
+    def label(self, value: str) -> None:
+        self._label = str(value)
+        self._resize(self._total_size())
 
     def _control_size(self, size) -> Tuple[int, int]:
         return (int(size), int(size))
@@ -213,6 +224,7 @@ class Toggle(Checkbox):
         self.knob_color = knob_color
         self.slide_time = slide_time
         self._knob = 1.0 if checked else 0.0
+        self._animated = False  # becomes True the first time update() is called
 
     def _control_size(self, size) -> Tuple[int, int]:
         return (int(size[0]), int(size[1]))
@@ -223,6 +235,7 @@ class Toggle(Checkbox):
         Args:
             dt: Seconds since the last frame.
         """
+        self._animated = True
         target = 1.0 if self.checked else 0.0
         if self.slide_time <= 0:
             self._knob = target
@@ -242,7 +255,8 @@ class Toggle(Checkbox):
         if not self.visible:
             return
         box = self.box_rect
-        t = self._knob
+        # without update() calls there is no animation, so show the real state
+        t = self._knob if self._animated else (1.0 if self.checked else 0.0)
         off, on = pygame.Color(self.off_color), pygame.Color(self.on_color)
         track = off.lerp(on, t) if self.enabled else pygame.Color(210, 210, 210)
         pygame.draw.rect(surface, track, box, border_radius=box.height // 2)

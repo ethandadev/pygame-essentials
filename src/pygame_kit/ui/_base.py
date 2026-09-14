@@ -19,6 +19,7 @@ If you want to make **your own** widget, subclass :class:`Widget`::
 
 from __future__ import annotations
 
+import os
 from typing import Optional, Sequence, Tuple, Union
 
 import pygame
@@ -26,7 +27,7 @@ import pygame
 Color = Union[pygame.Color, str, Tuple[int, int, int], Tuple[int, int, int, int]]
 """Anything pygame accepts as a color: ``(255, 0, 0)``, ``(255, 0, 0, 128)``, ``"red"``, or ``pygame.Color``."""
 
-FontLike = Union[pygame.font.Font, str, None]
+FontLike = Union[pygame.font.Font, str, "os.PathLike[str]", None]
 """A ``pygame.font.Font``, a path to a ``.ttf``/``.otf`` file, a system font name like ``"arial"``, or ``None`` for pygame's default font."""
 
 _ANCHORS = (
@@ -48,7 +49,8 @@ def resolve_font(font: FontLike = None, size: int = 28) -> pygame.font.Font:
         font: What font to use. Can be:
 
             * ``None``: pygame's built-in default font.
-            * A path ending in ``.ttf`` or ``.otf``, like ``"assets/pixel.ttf"``.
+            * A path ending in ``.ttf`` or ``.otf``, like ``"assets/pixel.ttf"``
+              (a ``pathlib.Path`` works too).
             * A system font name, like ``"arial"`` or ``"comicsansms"``.
             * An existing ``pygame.font.Font``, which is returned unchanged
               (``size`` is ignored).
@@ -65,6 +67,9 @@ def resolve_font(font: FontLike = None, size: int = 28) -> pygame.font.Font:
         return font
     if not pygame.font.get_init():
         pygame.font.init()
+        _font_cache.clear()  # fonts loaded before pygame.quit() can't be used any more
+    if font is not None:
+        font = os.fspath(font)
     key = (font, size)
     cached = _font_cache.get(key)
     if cached is None:

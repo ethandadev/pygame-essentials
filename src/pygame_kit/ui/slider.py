@@ -136,7 +136,7 @@ class Slider(Widget):
         return self.rect.inflate(grow, max(0, grow - self.rect.height))
 
     def _set_from_x(self, x: int) -> None:
-        frac = (x - self.rect.x) / self.rect.width
+        frac = (x - self.rect.x) / max(1, self.rect.width)
         new = self._clean(self.min_value + frac * (self.max_value - self.min_value))
         if new != self._value:
             self._value = new

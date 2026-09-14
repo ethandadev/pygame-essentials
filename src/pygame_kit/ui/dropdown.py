@@ -223,8 +223,8 @@ class Dropdown(Widget):
                     return True
                 return False  # clicked elsewhere: close, but let the click through
 
-        if event.type == pygame.MOUSEBUTTONUP and self.is_open:
-            return self.list_rect.collidepoint(event.pos)
+        if event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP) and self.is_open:
+            return self.list_rect.collidepoint(event.pos)  # e.g. a right-click on the list
 
         return False
 

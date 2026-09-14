@@ -32,7 +32,7 @@ class TextInput(Widget):
     Click the box to start typing, and click anywhere else to stop.
     Supported keys:
 
-    * Letters, numbers, symbols, and emoji (anything your keyboard types)
+    * Letters, numbers, and symbols (anything your keyboard types)
     * **Backspace** / **Delete**: erase before / after the cursor
     * **Left** / **Right**: move the cursor. **Home** / **End**: jump to the
       start / end.
@@ -67,14 +67,15 @@ class TextInput(Widget):
             for chat boxes).
         on_submit: Function called as ``on_submit(text)`` when Enter is
             pressed.
-        on_change: Function called as ``on_change(text)`` whenever the text
-            changes.
+        on_change: Function called as ``on_change(text)`` whenever the
+            player changes the text.
         anchor: Which point of the box ``pos`` refers to.
         visible: If False, the box is hidden and ignores input.
         enabled: If False, the box can't be focused or typed in.
 
     Attributes:
-        text (str): The current text. You can also set it yourself.
+        text (str): The current text. You can also set it yourself (that
+            doesn't call ``on_change``).
         focused (bool): True while the box is receiving typing. Set it to True
             to focus the box from code.
         cursor (int): Cursor position as a character index (0 = before the
@@ -149,12 +150,17 @@ class TextInput(Widget):
     # ------------------------------------------------------------- properties
     @property
     def text(self) -> str:
-        """The text in the box. Setting it moves the cursor to the end."""
+        """The text in the box.
+
+        Setting it moves the cursor to the end. It still respects
+        ``max_length`` and ``allowed_chars``, and it does **not** call
+        ``on_change``, the same as setting values on other widgets.
+        """
         return self._text
 
     @text.setter
     def text(self, value: str) -> None:
-        self._set_text(self._filter(str(value)))
+        self._text = self._filter(str(value))
         self.cursor = len(self._text)
 
     @property
@@ -242,7 +248,8 @@ class TextInput(Widget):
             elif key in (pygame.K_RETURN, pygame.K_KP_ENTER):
                 submitted = self._text
                 if self.clear_on_submit:
-                    self.text = ""
+                    self._set_text("")
+                    self.cursor = 0
                 if self.on_submit is not None:
                     self.on_submit(submitted)
             elif key == pygame.K_ESCAPE:

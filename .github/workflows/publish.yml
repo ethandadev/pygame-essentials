@@ -1,0 +1,75 @@
+# Publishes pygame-kit to PyPI whenever a GitHub Release is published.
+#
+# It uses PyPI "Trusted Publishing", so there are no passwords or API tokens:
+# PyPI trusts this exact workflow in this exact repository.
+#
+# To release a new version:
+#   1. Change __version__ in src/pygame_kit/__init__.py (like "0.2.0")
+#   2. Add the changes to CHANGELOG.md, commit and push
+#   3. On GitHub: Releases -> Draft a new release -> tag "v0.2.0" -> Publish
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test and build
+    runs-on: ubuntu-latest
+    env:
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      PYGAME_HIDE_SUPPORT_PROMPT: "1"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check the release tag matches the package version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION=$(python -c "import pygame_kit; print(pygame_kit.__version__)")
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::The release tag is '$TAG' but src/pygame_kit/__init__.py says __version__ = '$VERSION'. The tag must be 'v$VERSION'."
+            exit 1
+          fi
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Build
+        run: |
+          python -m build
+          python -m twine check --strict dist/*
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: Upload to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/pygame-kit/
+    permissions:
+      id-token: write   # lets PyPI verify this workflow (Trusted Publishing)
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+
+      - uses: pypa/gh-action-pypi-publish@release/v1

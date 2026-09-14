@@ -148,10 +148,6 @@ class ParticleEmitter:
         max_particles: int = 2000,
         emitting: bool = True,
     ) -> None:
-        if shape not in ("circle", "square"):
-            raise ValueError(f'shape must be "circle" or "square" (got {shape!r})')
-        if not colors:
-            raise ValueError("colors needs at least one color")
         self.pos = pygame.Vector2(pos)
         self.rate = rate
         self.lifetime = lifetime
@@ -160,9 +156,9 @@ class ParticleEmitter:
         self.spread = spread
         self.size = size
         self.end_size = end_size
-        self.colors = [pygame.Color(c) for c in colors]
-        self.end_color = pygame.Color(end_color) if end_color is not None else None
-        self.gravity = pygame.Vector2(gravity)
+        self.colors = colors
+        self.end_color = end_color
+        self.gravity = gravity
         self.drag = drag
         self.fade = fade
         self.shape = shape
@@ -170,6 +166,57 @@ class ParticleEmitter:
         self.emitting = emitting
         self.particles: List[Particle] = []
         self._spawn_debt = 0.0
+
+    # These are properties so that plain tuples like ``emitter.pos = (10, 20)``
+    # or ``emitter.gravity = (0, 300)`` are converted and keep working.
+    @property
+    def pos(self) -> pygame.Vector2:
+        """Where new particles appear. You can set it to a tuple or a Vector2."""
+        return self._pos
+
+    @pos.setter
+    def pos(self, value: Sequence[float]) -> None:
+        self._pos = pygame.Vector2(value)
+
+    @property
+    def gravity(self) -> pygame.Vector2:
+        """Acceleration in pixels per second². You can set it to a tuple or a Vector2."""
+        return self._gravity
+
+    @gravity.setter
+    def gravity(self, value: Sequence[float]) -> None:
+        self._gravity = pygame.Vector2(value)
+
+    @property
+    def colors(self) -> List[pygame.Color]:
+        """The colors new particles pick from. You can set it to any list of colors."""
+        return self._colors
+
+    @colors.setter
+    def colors(self, value: Sequence) -> None:
+        if not value:
+            raise ValueError("colors needs at least one color")
+        self._colors = [pygame.Color(c) for c in value]
+
+    @property
+    def end_color(self) -> Optional[pygame.Color]:
+        """The color particles fade toward, or ``None``."""
+        return self._end_color
+
+    @end_color.setter
+    def end_color(self, value) -> None:
+        self._end_color = pygame.Color(value) if value is not None else None
+
+    @property
+    def shape(self) -> str:
+        """``"circle"`` or ``"square"``."""
+        return self._shape
+
+    @shape.setter
+    def shape(self, value: str) -> None:
+        if value not in ("circle", "square"):
+            raise ValueError(f'shape must be "circle" or "square" (got {value!r})')
+        self._shape = value
 
     def _spawn(self, pos) -> None:
         if len(self.particles) >= self.max_particles:

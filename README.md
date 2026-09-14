@@ -1,5 +1,10 @@
 # pygame-kit
 
+[![Tests](https://github.com/ethandadev/pygame-kit/actions/workflows/tests.yml/badge.svg)](https://github.com/ethandadev/pygame-kit/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/pygame-kit)](https://pypi.org/project/pygame-kit/)
+[![Python](https://img.shields.io/badge/python-3.9%E2%80%933.13-blue)](https://pypi.org/project/pygame-kit/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/ethandadev/pygame-kit/blob/main/LICENSE)
+
 Well-documented building blocks for [pygame](https://www.pygame.org) games. You get UI widgets, timers, sprite animation, a camera, particles, save data and a debug overlay, and **you keep your own game loop**.
 
 ```python
@@ -31,17 +36,23 @@ Every example in this README is a **complete program**. Copy it into a `.py` fil
   - [SaveData](#savedata) · [DebugOverlay](#debugoverlay)
 - [Recipe: a settings menu that remembers](#recipe-a-settings-menu-that-remembers)
 - [Troubleshooting](#troubleshooting)
-- [Working on pygame-kit](#working-on-pygame-kit)
+- [Working on pygame-kit](#working-on-pygame-kit) (tests, releasing)
 
 ---
 
 ## Install
 
 ```bash
-pip install git+https://github.com/ethandadev/pygame-kit
+pip install pygame-kit
 ```
 
-This needs **Python 3.9+** and **pygame 2.5+**. pygame is installed automatically if you don't have it.
+This needs **Python 3.9–3.13** and **pygame 2.5+**. pygame is installed automatically if you don't have it.
+
+To get the newest unreleased code straight from GitHub instead:
+
+```bash
+pip install git+https://github.com/ethandadev/pygame-kit
+```
 
 To check it worked:
 
@@ -542,7 +553,7 @@ pygame.quit()
 | `allowed_chars` | `None` | Only allow these characters, like `"0123456789"`. |
 | `clear_on_submit` | `False` | Empty the box after Enter. |
 | `on_submit` | `None` | Called as `on_submit(text)` when Enter is pressed. |
-| `on_change` | `None` | Called as `on_change(text)` whenever the text changes. |
+| `on_change` | `None` | Called as `on_change(text)` whenever the player changes the text (including `clear_on_submit`). |
 | `anchor` | `"topleft"` | See [anchor](#positions-and-anchor). |
 | `visible` | `True` | Whether it's shown and usable. |
 | `enabled` | `True` | Whether it can be focused. |
@@ -553,7 +564,7 @@ pygame.quit()
 
 | Property | Description |
 |---|---|
-| `text` | The current text. Setting it moves the cursor to the end and still respects `max_length`/`allowed_chars`. |
+| `text` | The current text. Setting it moves the cursor to the end, still respects `max_length`/`allowed_chars`, and doesn't call `on_change`. |
 | `focused` | True while typing. Set it to True to focus from code. |
 
 | Method | Description |
@@ -762,6 +773,7 @@ pygame.quit()
 | Method | Description |
 |---|---|
 | `toggle()` | Flip the state and call `on_change`. |
+| `label` | Property: the label text. Changing it also resizes the clickable area. |
 | `box_rect` | Property: where the box or switch is drawn (without the label). |
 
 `checked` can be read or set at any time. Setting it from code doesn't call `on_change`.
@@ -2087,6 +2099,18 @@ You can only save JSON types. Convert Rects, Vectors and objects to lists or dic
 **Where is my save file?**
 `print(save.path)`
 
+**`pip install pygame-kit` fails while building pygame.**
+pygame doesn't have ready-made downloads for Python 3.14 yet, so pip tries to compile it and fails. Use Python 3.9–3.13.
+
+**I use pygame-ce (Community Edition).**
+pygame-kit asks for `pygame`, and having both installed causes conflicts. Install pygame-kit without its dependencies:
+
+```bash
+pip install --no-deps pygame-kit
+```
+
+It's tested with regular pygame, but it only uses features pygame-ce also has.
+
 ---
 
 ## Working on pygame-kit
@@ -2105,6 +2129,19 @@ The tests run without opening a window. They include:
 - the docstring examples (doctests),
 - **every runnable example in this README**, each run headless for a couple of seconds with simulated mouse clicks and key presses,
 - a check that the parameter tables in this README match the real code (names and defaults).
+
+### Releasing a new version
+
+Releases are automatic. Publishing a GitHub Release runs [`.github/workflows/publish.yml`](https://github.com/ethandadev/pygame-kit/blob/main/.github/workflows/publish.yml), which tests, builds, and uploads to PyPI using Trusted Publishing (no passwords or tokens).
+
+1. Change `__version__` in `src/pygame_kit/__init__.py`, for example to `"0.2.0"`.
+2. Move the notes in `CHANGELOG.md` under that version, then commit and push.
+3. On GitHub, go to **Releases → Draft a new release**, create the tag **`v0.2.0`** (it must match the version), and click **Publish release**.
+4. Watch it in the **Actions** tab. A few minutes later, `pip install pygame-kit` gets the new version.
+
+If the tag and `__version__` don't match, the workflow stops before uploading anything.
+
+### Demos
 
 Bigger demos live in `examples/`:
 

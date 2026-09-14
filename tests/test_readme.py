@@ -3,7 +3,7 @@
 1. Every ```python block in README.md that calls ``pygame.init()`` is a full
    program. Each one runs in its own process with no window, a fake clock, and
    scripted mouse clicks and key presses, and must reach the frame limit
-   without crashing.
+   without crashing. The scripts in examples/ are run the same way.
 2. Every "| Parameter | Default |" table must list exactly the real
    parameters of the class it documents, with the real default values.
 3. Every "| Method |" / "| Property |" table may only name things that exist.
@@ -36,6 +36,7 @@ def python_blocks():
 
 
 RUNNABLE = [(line, code) for line, code in python_blocks() if "pygame.init()" in code]
+EXAMPLES = sorted((README.parent / "examples").glob("*.py"))
 
 DRIVER = textwrap.dedent(
     """
@@ -102,8 +103,7 @@ DRIVER = textwrap.dedent(
 )
 
 
-@pytest.mark.parametrize("line,code", RUNNABLE, ids=[f"README line {line}" for line, _ in RUNNABLE])
-def test_readme_example_runs(line, code, tmp_path):
+def run_headless(code, label, tmp_path):
     example = tmp_path / "example.py"
     example.write_text(code, encoding="utf-8")
     driver = tmp_path / "driver.py"
@@ -120,11 +120,19 @@ def test_readme_example_runs(line, code, tmp_path):
         [sys.executable, str(driver), str(example), str(FRAMES)],
         cwd=tmp_path, env=env, capture_output=True, text=True, timeout=120,
     )
-    assert result.returncode == 0, f"README example at line {line} crashed:\n{result.stderr[-3000:]}"
+    assert result.returncode == 0, f"{label} crashed:\n{result.stderr[-3000:]}"
     frames = re.search(r"FRAMES (\d+)", result.stdout)
-    assert frames and int(frames.group(1)) >= FRAMES, (
-        f"example at line {line} stopped early:\n{result.stdout[-2000:]}"
-    )
+    assert frames and int(frames.group(1)) >= FRAMES, f"{label} stopped early:\n{result.stdout[-2000:]}"
+
+
+@pytest.mark.parametrize("line,code", RUNNABLE, ids=[f"README line {line}" for line, _ in RUNNABLE])
+def test_readme_example_runs(line, code, tmp_path):
+    run_headless(code, f"README example at line {line}", tmp_path)
+
+
+@pytest.mark.parametrize("path", EXAMPLES, ids=[p.name for p in EXAMPLES])
+def test_examples_folder_runs(path, tmp_path):
+    run_headless(path.read_text(encoding="utf-8"), str(path.name), tmp_path)
 
 
 def test_readme_has_runnable_examples():

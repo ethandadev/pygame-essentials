@@ -86,16 +86,47 @@ class Camera:
         deadzone: Optional[Sequence[int]] = None,
     ) -> None:
         self.screen_size = (int(screen_size[0]), int(screen_size[1]))
-        self.world_rect = pygame.Rect(world_rect) if world_rect is not None else None
+        self.world_rect = world_rect
         self.follow_speed = follow_speed
-        self.offset = pygame.Vector2(offset)
+        self.offset = offset
         self.deadzone = tuple(deadzone) if deadzone is not None else None
-        self.position = pygame.Vector2(0, 0)
+        self.position = (0, 0)
         self._target: Any = None
         self._shake_strength = 0.0
         self._shake_time = 0.0
         self._shake_duration = 0.0
         self._shake_offset = pygame.Vector2(0, 0)
+
+    # ----------------------------------------------------- vector attributes
+    @property
+    def position(self) -> pygame.Vector2:
+        """World position of the top-left of the view.
+
+        You can set it to a tuple or a Vector2, and it's always stored as a Vector2.
+        """
+        return self._position
+
+    @position.setter
+    def position(self, value: Point) -> None:
+        self._position = pygame.Vector2(value)
+
+    @property
+    def offset(self) -> pygame.Vector2:
+        """Shift of the target on screen. You can set it to a tuple or a Vector2."""
+        return self._offset
+
+    @offset.setter
+    def offset(self, value: Point) -> None:
+        self._offset = pygame.Vector2(value)
+
+    @property
+    def world_rect(self) -> Optional[pygame.Rect]:
+        """The level limits as a Rect, or ``None``. You can set it to a Rect, a tuple or ``None``."""
+        return self._world_rect
+
+    @world_rect.setter
+    def world_rect(self, value) -> None:
+        self._world_rect = pygame.Rect(value) if value is not None else None
 
     # ------------------------------------------------------------- following
     @staticmethod

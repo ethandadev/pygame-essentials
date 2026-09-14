@@ -59,7 +59,8 @@ class Button(Widget):
         size: ``(width, height)`` in pixels. Needed for colored buttons. For
             image buttons you can skip it and the image's size is used. If you
             give both, the images are scaled to ``size``.
-        text: Text shown in the middle of the button. Can be empty.
+        text: Text shown in the middle of the button. Can be empty. Numbers and
+            other values are converted with ``str()``.
         font: Font for the text: ``None`` (default font), a system font name
             like ``"arial"``, a ``.ttf`` path, or a ``pygame.font.Font``.
         font_size: Text size in pixels. Ignored if ``font`` is a Font object.
@@ -247,10 +248,11 @@ class Button(Widget):
         if self.border_width > 0:
             pygame.draw.rect(surface, self.border_color, self.rect,
                              self.border_width, border_radius=self.border_radius)
-        if self.text:
-            key = (self.text, self.font, tuple(pygame.Color(self.text_color)))
+        text = str(self.text)
+        if text:
+            key = (text, self.font, tuple(pygame.Color(self.text_color)))
             if self._text_cache[0] != key:
-                rendered = self.font.render(self.text, True, self.text_color)
+                rendered = self.font.render(text, True, self.text_color)
                 self._text_cache = (key, rendered)
             rendered = self._text_cache[1]
             surface.blit(rendered, rendered.get_rect(center=self.rect.center))
