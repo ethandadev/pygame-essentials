@@ -69,4 +69,4 @@ jobs:
           python -m venv /tmp/clean
           /tmp/clean/bin/pip install dist/*.whl
           cd /tmp
-          /tmp/clean/bin/python -c "import pathlib, pygame_kit as pk; assert (pathlib.Path(pk.__file__).parent / 'py.typed').exists(); print('pygame-kit', pk.__version__, 'OK')"
+          /tmp/clean/bin/python -c "import pathlib, pygame_toolkit as pk; assert (pathlib.Path(pk.__file__).parent / 'py.typed').exists(); print('pygame-toolkit', pk.__version__, 'OK')"

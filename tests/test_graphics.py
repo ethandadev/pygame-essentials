@@ -3,7 +3,7 @@ import random
 import pygame
 import pytest
 
-from pygame_kit import Animation, AnimationSet, Camera, ParticleEmitter, Spritesheet
+from pygame_toolkit import Animation, AnimationSet, Camera, ParticleEmitter, Spritesheet
 
 
 def make_sheet(cols=4, rows=2, w=10, h=8, spacing=0, margin=0):

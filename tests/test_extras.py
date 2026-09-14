@@ -3,7 +3,7 @@ import json
 import pygame
 import pytest
 
-from pygame_kit import Camera, DebugOverlay, SaveData, default_save_folder
+from pygame_toolkit import Camera, DebugOverlay, SaveData, default_save_folder
 
 
 # ----------------------------------------------------------------- SaveData

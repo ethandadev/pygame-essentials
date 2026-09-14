@@ -2,7 +2,7 @@ import pygame
 import pytest
 
 from conftest import click, down, motion, up
-from pygame_kit import Button, Label
+from pygame_toolkit import Button, Label
 
 
 def test_click_fires_once_on_release():

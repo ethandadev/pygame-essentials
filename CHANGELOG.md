@@ -1,12 +1,12 @@
 # Changelog
 
-All notable changes to pygame-kit are listed here. Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
+All notable changes to pygame-toolkit are listed here. Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
 
 - **PATCH** (0.1.0 → 0.1.1): bug fixes only
 - **MINOR** (0.1.0 → 0.2.0): new features, existing code keeps working
 - **MAJOR** (0.x → 1.0.0): changes that can break existing code
 
-## [0.1.0] - Unreleased
+## [0.1.0] - Sept 14, 2026
 
 First release.
 
@@ -34,4 +34,4 @@ First release.
 - `SaveData`: auto-saving JSON dict in the system app-data folder, with `set_max`/`set_min` and crash-safe writes.
 - `DebugOverlay`: F3 overlay with FPS, mouse position, watched values and hitboxes.
 
-[0.1.0]: https://github.com/ethandadev/pygame-kit/releases/tag/v0.1.0
+[0.1.0]: https://github.com/ethandadev/pygame-toolkit/releases/tag/v0.1.0

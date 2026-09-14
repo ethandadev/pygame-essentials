@@ -1,8 +1,8 @@
-"""pygame-kit: handy, well-documented building blocks for pygame games.
+"""pygame-toolkit: handy, well-documented building blocks for pygame games.
 
 Import it once and everything is available::
 
-    import pygame_kit as pk
+    import pygame_toolkit as pk
 
     button = pk.Button((20, 20), size=(120, 40), text="Hi")
 

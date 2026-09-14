@@ -1,6 +1,6 @@
 import pytest
 
-from pygame_kit import Cooldown, Timer
+from pygame_toolkit import Cooldown, Timer
 
 
 def test_timer_one_shot():
