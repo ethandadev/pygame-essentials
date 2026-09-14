@@ -9,6 +9,15 @@ Every widget uses the same three calls:
 
 from ._base import Widget, resolve_font
 from .button import Button
+from .checkbox import Checkbox, Toggle
+from .dropdown import Dropdown
 from .label import Label
+from .progress_bar import ProgressBar
+from .slider import Slider
+from .text_input import TextInput
 
-__all__ = ["Widget", "resolve_font", "Button", "Label"]
+__all__ = [
+    "Widget", "resolve_font",
+    "Button", "Label", "TextInput", "Slider",
+    "Checkbox", "Toggle", "Dropdown", "ProgressBar",
+]
