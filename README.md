@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/ethandadev/pygame-essentials/actions/workflows/tests.yml/badge.svg)](https://github.com/ethandadev/pygame-essentials/actions/workflows/tests.yml)
 [![PyPI](https://img.shields.io/pypi/v/pygame-essentials)](https://pypi.org/project/pygame-essentials/)
-[![Python](https://img.shields.io/badge/python-3.9%E2%80%933.13-blue)](https://pypi.org/project/pygame-essentials/)
+[![Python](https://img.shields.io/badge/python-3.9%E2%80%933.14-blue)](https://pypi.org/project/pygame-essentials/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/ethandadev/pygame-essentials/blob/main/LICENSE)
 
 Well-documented building blocks for [pygame](https://www.pygame.org) games. You get UI widgets, timers, sprite animation, a camera, particles, save data and a debug overlay, and **you keep your own game loop**.
@@ -46,7 +46,14 @@ Every example in this README is a **complete program**. Copy it into a `.py` fil
 pip install pygame-essentials
 ```
 
-This needs **Python 3.9–3.13** and **pygame 2.5+**. pygame is installed automatically if you don't have it.
+This needs **Python 3.9–3.14**. It installs **[pygame-ce](https://pyga.me)** (pygame Community Edition, the actively maintained version of pygame) automatically. You still write `import pygame` as usual.
+
+> **Already have classic pygame installed?** pygame and pygame-ce can't be installed at the same time, because they share the same `pygame` folder. See [Using classic pygame](#using-classic-pygame) or switch to pygame-ce:
+>
+> ```bash
+> pip uninstall -y pygame pygame-ce
+> pip install pygame-essentials
+> ```
 
 To get the newest unreleased code straight from GitHub instead:
 
@@ -1876,7 +1883,7 @@ It also works like a dict: `save["coins"]`, `save["coins"] = 5`, `del save["coin
 
 ## DebugOverlay
 
-Press **F3** to see FPS, the mouse position, any values you `watch`, and hitbox outlines. When hidden, it does almost no work, so you can leave the debug calls in your game.
+Press **F3** to see FPS, which pygame is running (like `pygame-ce 2.5.8`), the mouse position, any values you `watch`, and hitbox outlines. When hidden, it does almost no work, so you can leave the debug calls in your game.
 
 #### Example
 
@@ -2099,17 +2106,40 @@ You can only save JSON types. Convert Rects, Vectors and objects to lists or dic
 **Where is my save file?**
 `print(save.path)`
 
-**`pip install pygame-essentials` fails while building pygame.**
-pygame doesn't have ready-made downloads for Python 3.14 yet, so pip tries to compile it and fails. Use Python 3.9–3.13.
+**Warning: `Both pygame-ce ... and pygame ... are installed`.**
+pygame and pygame-ce put their files in the same `pygame` folder, so having both causes missing features and strange crashes. Keep only one:
 
-**I use pygame-ce (Community Edition).**
-pygame-essentials asks for `pygame`, and having both installed causes conflicts. Install pygame-essentials without its dependencies:
+```bash
+pip uninstall -y pygame pygame-ce
+```
+
+```bash
+pip install pygame-ce
+```
+
+**`ImportError: pygame-essentials needs pygame-ce`.**
+You probably installed with `--no-deps`. Install pygame-ce (or classic pygame, see below).
+
+### Using classic pygame
+
+pygame-essentials installs pygame-ce by default, but it's also tested with classic **pygame 2.5 and newer**. To use classic pygame, install pygame-essentials **without its dependencies** so pygame-ce doesn't get added:
+
+```bash
+pip install pygame
+```
 
 ```bash
 pip install --no-deps pygame-essentials
 ```
 
-It's tested with regular pygame, but it only uses features pygame-ce also has.
+Everything works the same. Features that only exist in pygame-ce, like `pygame.FRect`, are supported when available and simply unused otherwise.
+
+In a `requirements.txt`, list `pygame-essentials` together with the pygame you want. For pygame-ce (recommended):
+
+```
+pygame-ce
+pygame-essentials
+```
 
 ---
 
@@ -2121,6 +2151,15 @@ cd pygame-essentials
 python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 .venv/bin/pytest
+```
+
+Your `.venv` gets pygame-ce. To also test with classic pygame:
+
+```bash
+python3 -m venv .venv-classic
+.venv-classic/bin/pip install --no-deps -e .
+.venv-classic/bin/pip install pygame pytest
+.venv-classic/bin/pytest
 ```
 
 The tests run without opening a window. They include:

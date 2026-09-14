@@ -11,8 +11,8 @@ license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "ethandadev" }]
 requires-python = ">=3.9"
-dependencies = ["pygame>=2.5"]
-keywords = ["pygame", "game", "gamedev", "ui", "widgets", "gui", "camera", "particles", "animation", "spritesheet"]
+dependencies = ["pygame-ce>=2.4"]  # classic pygame 2.5+ also works: see the README
+keywords = ["pygame", "pygame-ce", "game", "gamedev", "ui", "widgets", "gui", "camera", "particles", "animation", "spritesheet"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -25,6 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Games/Entertainment",
     "Topic :: Software Development :: Libraries :: pygame",
     "Typing :: Typed",

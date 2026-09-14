@@ -97,7 +97,8 @@ class Widget:
 
     Args:
         pos: Where to place the widget, in pixels. By default this is the
-            **top-left corner**. Change that with ``anchor``.
+            **top-left corner**. Change that with ``anchor``. Decimal
+            positions (like a ``Vector2`` or ``FRect.center``) are rounded.
         size: ``(width, height)`` in pixels.
         anchor: Which point of the widget ``pos`` refers to. One of
             ``"topleft"`` (default), ``"center"``, ``"midtop"``,
@@ -135,8 +136,8 @@ class Widget:
             raise ValueError(
                 f"anchor must be one of {', '.join(_ANCHORS)} (got {anchor!r})"
             )
-        self.rect = pygame.Rect(0, 0, int(size[0]), int(size[1]))
-        setattr(self.rect, anchor, (int(pos[0]), int(pos[1])))
+        self.rect = pygame.Rect(0, 0, round(size[0]), round(size[1]))
+        setattr(self.rect, anchor, (round(pos[0]), round(pos[1])))
         self.anchor = anchor
         self.visible = visible
         self.enabled = enabled
@@ -152,7 +153,7 @@ class Widget:
     def _resize(self, size: Sequence[float]) -> None:
         """Change the size while keeping the anchor point in place."""
         point = getattr(self.rect, self.anchor)
-        self.rect.size = (int(size[0]), int(size[1]))
+        self.rect.size = (round(size[0]), round(size[1]))
         setattr(self.rect, self.anchor, point)
 
     def _track_click(self, event: pygame.event.Event) -> bool:

@@ -24,6 +24,7 @@ from typing import Any, Callable, List, Optional, Sequence, Tuple
 
 import pygame
 
+from ._compat import pygame_description
 from .ui._base import Color, FontLike, resolve_font
 
 
@@ -32,7 +33,8 @@ class DebugOverlay:
 
     It shows:
 
-    * **FPS** (averaged, so it doesn't flicker) and frame time in milliseconds
+    * **FPS** (averaged, so it doesn't flicker), frame time in milliseconds,
+      and which pygame is running (like ``pygame-ce 2.5.8``)
     * **Mouse position** (also in world coordinates if you pass a camera to
       ``draw``)
     * **Watched values**: anything you add with :meth:`watch`
@@ -164,7 +166,10 @@ class DebugOverlay:
                 mouse's world position.
         """
         mx, my = pygame.mouse.get_pos()
-        out = [f"FPS: {self.fps:.0f}  ({self._frame_ms:.1f} ms)", f"Mouse: {mx}, {my}"]
+        out = [
+            f"FPS: {self.fps:.0f}  ({self._frame_ms:.1f} ms)   {pygame_description()}",
+            f"Mouse: {mx}, {my}",
+        ]
         if camera is not None:
             wx, wy = camera.to_world((mx, my))
             out.append(f"World: {wx:.0f}, {wy:.0f}")
