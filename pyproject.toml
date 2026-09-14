@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygame-kit"
+version = "0.1.0"
+description = "Handy, well-documented building blocks for pygame games: UI widgets, timers, animation, camera, particles, save data and a debug overlay."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "ethandadev" }]
+requires-python = ">=3.9"
+dependencies = ["pygame>=2.5"]
+keywords = ["pygame", "game", "ui", "widgets", "gamedev"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment",
+    "Topic :: Software Development :: Libraries :: pygame",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/ethandadev/pygame-kit"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
