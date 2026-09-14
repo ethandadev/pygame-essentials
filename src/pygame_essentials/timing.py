@@ -128,7 +128,7 @@ class Timer:
     def progress(self) -> float:
         """How far along the countdown is, from 0.0 (just started) to 1.0 (finished).
 
-        Great for animations or feeding a :class:`~pygame_toolkit.ProgressBar`.
+        Great for animations or feeding a :class:`~pygame_essentials.ProgressBar`.
         """
         if self.duration == 0:
             return 1.0

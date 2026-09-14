@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to pygame-toolkit are listed here. Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
+All notable changes to pygame-essentials are listed here. Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
 
 - **PATCH** (0.1.0 → 0.1.1): bug fixes only
 - **MINOR** (0.1.0 → 0.2.0): new features, existing code keeps working
@@ -34,4 +34,4 @@ First release.
 - `SaveData`: auto-saving JSON dict in the system app-data folder, with `set_max`/`set_min` and crash-safe writes.
 - `DebugOverlay`: F3 overlay with FPS, mouse position, watched values and hitboxes.
 
-[0.1.0]: https://github.com/ethandadev/pygame-toolkit/releases/tag/v0.1.0
+[0.1.0]: https://github.com/ethandadev/pygame-essentials/releases/tag/v0.1.0

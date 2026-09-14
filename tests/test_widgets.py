@@ -2,7 +2,7 @@ import pygame
 import pytest
 
 from conftest import click, down, motion, up
-from pygame_toolkit import Checkbox, Dropdown, ProgressBar, Slider, TextInput, Toggle
+from pygame_essentials import Checkbox, Dropdown, ProgressBar, Slider, TextInput, Toggle
 
 
 def key(k):

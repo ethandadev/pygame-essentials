@@ -6,7 +6,7 @@ import pygame
 import pytest
 
 from conftest import click, down, motion, up
-from pygame_toolkit import (
+from pygame_essentials import (
     Button, Camera, Checkbox, Dropdown, ParticleEmitter, Slider, TextInput, Toggle, resolve_font,
 )
 

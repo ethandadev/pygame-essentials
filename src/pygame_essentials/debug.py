@@ -160,7 +160,7 @@ class DebugOverlay:
         """The text lines the overlay shows. Handy if you want to print them instead.
 
         Args:
-            camera: Optional :class:`~pygame_toolkit.Camera` to also show the
+            camera: Optional :class:`~pygame_essentials.Camera` to also show the
                 mouse's world position.
         """
         mx, my = pygame.mouse.get_pos()
@@ -181,7 +181,7 @@ class DebugOverlay:
 
         Args:
             surface: Where to draw, usually your screen.
-            camera: Optional :class:`~pygame_toolkit.Camera`. If given, hitboxes are
+            camera: Optional :class:`~pygame_essentials.Camera`. If given, hitboxes are
                 moved by the camera and the mouse's world position is shown.
         """
         rects, self._rects = self._rects, []

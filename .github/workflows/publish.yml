@@ -1,10 +1,10 @@
-# Publishes pygame-toolkit to PyPI whenever a GitHub Release is published.
+# Publishes pygame-essentials to PyPI whenever a GitHub Release is published.
 #
 # It uses PyPI "Trusted Publishing", so there are no passwords or API tokens:
 # PyPI trusts this exact workflow in this exact repository.
 #
 # To release a new version:
-#   1. Change __version__ in src/pygame_toolkit/__init__.py (like "0.2.0")
+#   1. Change __version__ in src/pygame_essentials/__init__.py (like "0.2.0")
 #   2. Add the changes to CHANGELOG.md, commit and push
 #   3. On GitHub: Releases -> Draft a new release -> tag "v0.2.0" -> Publish
 name: Publish to PyPI
@@ -38,9 +38,9 @@ jobs:
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
-          VERSION=$(python -c "import pygame_toolkit; print(pygame_toolkit.__version__)")
+          VERSION=$(python -c "import pygame_essentials; print(pygame_essentials.__version__)")
           if [ "$TAG" != "v$VERSION" ]; then
-            echo "::error::The release tag is '$TAG' but src/pygame_toolkit/__init__.py says __version__ = '$VERSION'. The tag must be 'v$VERSION'."
+            echo "::error::The release tag is '$TAG' but src/pygame_essentials/__init__.py says __version__ = '$VERSION'. The tag must be 'v$VERSION'."
             exit 1
           fi
 
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/pygame-toolkit/
+      url: https://pypi.org/project/pygame-essentials/
     permissions:
       id-token: write   # lets PyPI verify this workflow (Trusted Publishing)
     steps:

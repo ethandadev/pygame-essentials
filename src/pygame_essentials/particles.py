@@ -284,7 +284,7 @@ class ParticleEmitter:
 
         Args:
             surface: Where to draw, usually your screen.
-            camera: Optional :class:`~pygame_toolkit.Camera`. If given, particles
+            camera: Optional :class:`~pygame_essentials.Camera`. If given, particles
                 are treated as being in world coordinates and moved by the
                 camera.
         """

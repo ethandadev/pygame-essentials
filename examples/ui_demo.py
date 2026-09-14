@@ -1,22 +1,22 @@
-"""Every pygame-toolkit UI widget on one screen.
+"""Every pygame-essentials UI widget on one screen.
 
 Run it with:  python examples/ui_demo.py
 """
 
 import pygame
 
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 pygame.key.set_repeat(400, 35)  # hold Backspace/arrows to repeat in the text box
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("pygame-toolkit UI demo")
+pygame.display.set_caption("pygame-essentials UI demo")
 clock = pygame.time.Clock()
 
 BG = (245, 246, 250)
 DARK = (30, 30, 40)
 
-title = pk.Label((400, 40), "pygame-toolkit UI demo", font_size=48, color=DARK, anchor="center")
+title = pk.Label((400, 40), "pygame-essentials UI demo", font_size=48, color=DARK, anchor="center")
 status = pk.Label((400, 570), "Try everything!", font_size=26, color=(90, 90, 110), anchor="center")
 
 

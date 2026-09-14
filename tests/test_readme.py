@@ -20,7 +20,7 @@ from pathlib import Path
 import pygame
 import pytest
 
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 README = Path(__file__).resolve().parent.parent / "README.md"
 FRAMES = 150

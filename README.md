@@ -1,19 +1,19 @@
-# pygame-toolkit
+# pygame-essentials
 
-[![Tests](https://github.com/ethandadev/pygame-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/ethandadev/pygame-toolkit/actions/workflows/tests.yml)
-[![PyPI](https://img.shields.io/pypi/v/pygame-toolkit)](https://pypi.org/project/pygame-toolkit/)
-[![Python](https://img.shields.io/badge/python-3.9%E2%80%933.13-blue)](https://pypi.org/project/pygame-toolkit/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/ethandadev/pygame-toolkit/blob/main/LICENSE)
+[![Tests](https://github.com/ethandadev/pygame-essentials/actions/workflows/tests.yml/badge.svg)](https://github.com/ethandadev/pygame-essentials/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/pygame-essentials)](https://pypi.org/project/pygame-essentials/)
+[![Python](https://img.shields.io/badge/python-3.9%E2%80%933.13-blue)](https://pypi.org/project/pygame-essentials/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/ethandadev/pygame-essentials/blob/main/LICENSE)
 
 Well-documented building blocks for [pygame](https://www.pygame.org) games. You get UI widgets, timers, sprite animation, a camera, particles, save data and a debug overlay, and **you keep your own game loop**.
 
 ```python
-import pygame_toolkit as pk
+import pygame_essentials as pk
 ```
 
 Every example in this README is a **complete program**. Copy it into a `.py` file and run it. They don't need any image or sound files. (The test suite runs every one of them, so they stay working.)
 
-![UI demo](https://raw.githubusercontent.com/ethandadev/pygame-toolkit/main/docs/ui_demo.png)
+![UI demo](https://raw.githubusercontent.com/ethandadev/pygame-essentials/main/docs/ui_demo.png)
 
 ---
 
@@ -36,14 +36,14 @@ Every example in this README is a **complete program**. Copy it into a `.py` fil
   - [SaveData](#savedata) · [DebugOverlay](#debugoverlay)
 - [Recipe: a settings menu that remembers](#recipe-a-settings-menu-that-remembers)
 - [Troubleshooting](#troubleshooting)
-- [Working on pygame-toolkit](#working-on-pygame-toolkit) (tests, releasing)
+- [Working on pygame-essentials](#working-on-pygame-essentials) (tests, releasing)
 
 ---
 
 ## Install
 
 ```bash
-pip install pygame-toolkit
+pip install pygame-essentials
 ```
 
 This needs **Python 3.9–3.13** and **pygame 2.5+**. pygame is installed automatically if you don't have it.
@@ -51,13 +51,13 @@ This needs **Python 3.9–3.13** and **pygame 2.5+**. pygame is installed automa
 To get the newest unreleased code straight from GitHub instead:
 
 ```bash
-pip install git+https://github.com/ethandadev/pygame-toolkit
+pip install git+https://github.com/ethandadev/pygame-essentials
 ```
 
 To check it worked:
 
 ```bash
-python -c "import pygame_toolkit; print(pygame_toolkit.__version__)"
+python -c "import pygame_essentials; print(pygame_essentials.__version__)"
 ```
 
 ---
@@ -66,11 +66,11 @@ python -c "import pygame_toolkit; print(pygame_toolkit.__version__)"
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("pygame-toolkit quick start")
+pygame.display.set_caption("pygame-essentials quick start")
 clock = pygame.time.Clock()
 
 clicks = 0
@@ -111,7 +111,7 @@ pygame.quit()
 
 ### The three calls
 
-Almost everything in pygame-toolkit uses the same three methods, so once you learn them you know the whole library:
+Almost everything in pygame-essentials uses the same three methods, so once you learn them you know the whole library:
 
 | Call | When | What it does |
 |---|---|---|
@@ -129,7 +129,7 @@ dt = clock.tick(60) / 1000
 
 `clock.tick(60)` limits the game to 60 FPS and returns how many **milliseconds** passed since the last frame. Dividing by 1000 gives **seconds** (about `0.0167` at 60 FPS).
 
-Everything in pygame-toolkit that changes over time uses seconds. `Timer(2)` means 2 seconds and `Animation(fps=10)` means 10 frames per second, **no matter how fast your game runs**. A slow computer at 30 FPS and a fast one at 144 FPS behave the same.
+Everything in pygame-essentials that changes over time uses seconds. `Timer(2)` means 2 seconds and `Animation(fps=10)` means 10 frames per second, **no matter how fast your game runs**. A slow computer at 30 FPS and a fast one at 144 FPS behave the same.
 
 ### Positions and `anchor`
 
@@ -179,7 +179,7 @@ Fonts are loaded once and reused, so creating many widgets with the same font is
 Widgets can tell you something happened in two ways. Use whichever you prefer:
 
 ```python
-# Callback: pygame-toolkit calls your function
+# Callback: pygame-essentials calls your function
 button = pk.Button((20, 20), size=(100, 40), on_click=start_game)
 
 # Polling: you ask each frame
@@ -249,7 +249,7 @@ A clickable button made from a colored rectangle **or** your own images. A click
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -376,7 +376,7 @@ Text on screen without `font.render` and `blit` every frame. It only re-renders 
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -474,7 +474,7 @@ A one-line text box. Click it to type, and click elsewhere (or press Escape) to 
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 pygame.key.set_repeat(400, 35)
@@ -584,7 +584,7 @@ Drag the handle, or click anywhere on the track, to pick a number.
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -683,7 +683,7 @@ On/off controls. A `Checkbox` is a square with a check mark. A `Toggle` is a sli
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -812,7 +812,7 @@ Click to open a list, click an option to choose it. Long lists scroll with the m
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -926,7 +926,7 @@ A bar that fills from left to right. `value` goes from `0.0` (empty) to `1.0` (f
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1060,7 +1060,7 @@ Subclass `pk.Widget` and override the methods you need. You get `rect`, `anchor`
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1138,7 +1138,7 @@ pygame.quit()
 import random
 
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1251,7 +1251,7 @@ if keys[pygame.K_SPACE] and shoot.use():   # use() = "if ready, start cooling do
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1354,7 +1354,7 @@ Frames are counted from the top-left corner: column 0 row 0 is the first frame.
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1525,7 +1525,7 @@ The rule is: **draw everything in the world through `camera.apply(...)`, but dra
 import random
 
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1638,7 +1638,7 @@ Settings marked *Range* accept one number **or** `(min, max)`, and each particle
 import random
 
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1755,7 +1755,7 @@ Saving is crash-safe: it writes a temporary file and swaps it in. If the file is
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1764,7 +1764,7 @@ clock = pygame.time.Clock()
 
 COLORS = {"Blue": [60, 130, 240], "Red": [220, 60, 60], "Green": [60, 180, 90]}
 
-save = pk.SaveData("pygame-toolkit-docs-example", defaults={
+save = pk.SaveData("pygame-essentials-docs-example", defaults={
     "total_clicks": 0,
     "best_streak": 0,
     "fastest_ten": None,
@@ -1884,7 +1884,7 @@ Press **F3** to see FPS, the mouse position, any values you `watch`, and hitbox 
 import random
 
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -1987,14 +1987,14 @@ Everything together: widgets whose values are loaded from `SaveData` at startup 
 
 ```python
 import pygame
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Settings menu recipe  (Esc opens settings)")
 clock = pygame.time.Clock()
 
-settings = pk.SaveData("pygame-toolkit-docs-example", filename="settings.json", defaults={
+settings = pk.SaveData("pygame-essentials-docs-example", filename="settings.json", defaults={
     "volume": 0.8,
     "show_fps": False,
     "difficulty": "Normal",
@@ -2099,25 +2099,25 @@ You can only save JSON types. Convert Rects, Vectors and objects to lists or dic
 **Where is my save file?**
 `print(save.path)`
 
-**`pip install pygame-toolkit` fails while building pygame.**
+**`pip install pygame-essentials` fails while building pygame.**
 pygame doesn't have ready-made downloads for Python 3.14 yet, so pip tries to compile it and fails. Use Python 3.9–3.13.
 
 **I use pygame-ce (Community Edition).**
-pygame-toolkit asks for `pygame`, and having both installed causes conflicts. Install pygame-toolkit without its dependencies:
+pygame-essentials asks for `pygame`, and having both installed causes conflicts. Install pygame-essentials without its dependencies:
 
 ```bash
-pip install --no-deps pygame-toolkit
+pip install --no-deps pygame-essentials
 ```
 
 It's tested with regular pygame, but it only uses features pygame-ce also has.
 
 ---
 
-## Working on pygame-toolkit
+## Working on pygame-essentials
 
 ```bash
-git clone https://github.com/ethandadev/pygame-toolkit
-cd pygame-toolkit
+git clone https://github.com/ethandadev/pygame-essentials
+cd pygame-essentials
 python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 .venv/bin/pytest
@@ -2132,12 +2132,12 @@ The tests run without opening a window. They include:
 
 ### Releasing a new version
 
-Releases are automatic. Publishing a GitHub Release runs [`.github/workflows/publish.yml`](https://github.com/ethandadev/pygame-toolkit/blob/main/.github/workflows/publish.yml), which tests, builds, and uploads to PyPI using Trusted Publishing (no passwords or tokens).
+Releases are automatic. Publishing a GitHub Release runs [`.github/workflows/publish.yml`](https://github.com/ethandadev/pygame-essentials/blob/main/.github/workflows/publish.yml), which tests, builds, and uploads to PyPI using Trusted Publishing (no passwords or tokens).
 
-1. Change `__version__` in `src/pygame_toolkit/__init__.py`, for example to `"0.2.0"`.
+1. Change `__version__` in `src/pygame_essentials/__init__.py`, for example to `"0.2.0"`.
 2. Move the notes in `CHANGELOG.md` under that version, then commit and push.
 3. On GitHub, go to **Releases → Draft a new release**, create the tag **`v0.2.0`** (it must match the version), and click **Publish release**.
-4. Watch it in the **Actions** tab. A few minutes later, `pip install pygame-toolkit` gets the new version.
+4. Watch it in the **Actions** tab. A few minutes later, `pip install pygame-essentials` gets the new version.
 
 If the tag and `__version__` don't match, the workflow stops before uploading anything.
 
@@ -2150,7 +2150,7 @@ python examples/ui_demo.py          # every UI widget
 python examples/platformer_demo.py  # camera, animation, particles, cooldowns, save data, F3 debug
 ```
 
-![Platformer demo](https://raw.githubusercontent.com/ethandadev/pygame-toolkit/main/docs/platformer.png)
+![Platformer demo](https://raw.githubusercontent.com/ethandadev/pygame-essentials/main/docs/platformer.png)
 
 ## License
 

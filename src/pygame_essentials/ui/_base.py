@@ -1,4 +1,4 @@
-"""Shared building blocks for every pygame-toolkit UI widget.
+"""Shared building blocks for every pygame-essentials UI widget.
 
 You normally don't use this module directly. It holds:
 
@@ -9,7 +9,7 @@ You normally don't use this module directly. It holds:
 
 If you want to make **your own** widget, subclass :class:`Widget`::
 
-    from pygame_toolkit.ui import Widget
+    from pygame_essentials.ui import Widget
 
     class Star(Widget):
         def draw(self, surface):
@@ -86,7 +86,7 @@ def resolve_font(font: FontLike = None, size: int = 28) -> pygame.font.Font:
 class Widget:
     """Base class for all UI widgets: a rectangle that can react to events and draw itself.
 
-    Every widget in pygame-toolkit follows the same three-step pattern, so once you
+    Every widget in pygame-essentials follows the same three-step pattern, so once you
     know one you know them all:
 
     1. ``handle_event(event)``: call for **every** event inside your

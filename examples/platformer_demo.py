@@ -16,12 +16,12 @@ import random
 
 import pygame
 
-import pygame_toolkit as pk
+import pygame_essentials as pk
 
 pygame.init()
 W, H = 960, 540
 screen = pygame.display.set_mode((W, H))
-pygame.display.set_caption("pygame-toolkit platformer demo")
+pygame.display.set_caption("pygame-essentials platformer demo")
 clock = pygame.time.Clock()
 
 
@@ -92,7 +92,7 @@ dash_trail = pk.ParticleEmitter(rate=90, emitting=False, colors=[(255, 255, 255)
                                 size=(5, 9), end_size=0, lifetime=0.25, fade=True)
 
 # ------------------------------------------------------------- UI + extras
-save = pk.SaveData("pygame-toolkit-platformer-demo", defaults={"best_coins": 0})
+save = pk.SaveData("pygame-essentials-platformer-demo", defaults={"best_coins": 0})
 score = 0
 score_label = pk.Label((W - 20, 16), "", font_size=34, color="white", anchor="topright",
                        background=(0, 0, 0), padding=8, border_radius=8)

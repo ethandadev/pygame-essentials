@@ -3,7 +3,7 @@
 Quick example::
 
     import pygame
-    import pygame_toolkit as pk
+    import pygame_essentials as pk
 
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
@@ -78,7 +78,7 @@ class Button(Widget):
         border_width: Outline thickness in pixels. 0 = no outline.
         border_color: Outline color.
         anchor: Which point of the button ``pos`` refers to, like
-            ``"center"``. See :class:`~pygame_toolkit.ui.Widget`.
+            ``"center"``. See :class:`~pygame_essentials.ui.Widget`.
         on_click: A function with no arguments to call when clicked.
         visible: If False, the button is hidden and can't be clicked.
         enabled: If False, the button is grayed out and can't be clicked.

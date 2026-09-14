@@ -3,8 +3,8 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pygame-toolkit"
-dynamic = ["version"]  # read from pygame_toolkit.__version__
+name = "pygame-essentials"
+dynamic = ["version"]  # read from pygame_essentials.__version__
 description = "Handy, well-documented building blocks for pygame games: UI widgets, timers, animation, camera, particles, save data and a debug overlay."
 readme = "README.md"
 license = "MIT"
@@ -34,20 +34,20 @@ classifiers = [
 dev = ["pytest>=8", "build", "twine"]
 
 [project.urls]
-Homepage = "https://github.com/ethandadev/pygame-toolkit"
-Documentation = "https://github.com/ethandadev/pygame-toolkit#readme"
-Changelog = "https://github.com/ethandadev/pygame-toolkit/blob/main/CHANGELOG.md"
-Issues = "https://github.com/ethandadev/pygame-toolkit/issues"
+Homepage = "https://github.com/ethandadev/pygame-essentials"
+Documentation = "https://github.com/ethandadev/pygame-essentials#readme"
+Changelog = "https://github.com/ethandadev/pygame-essentials/blob/main/CHANGELOG.md"
+Issues = "https://github.com/ethandadev/pygame-essentials/issues"
 
 [tool.setuptools.dynamic]
-version = { attr = "pygame_toolkit.__version__" }
+version = { attr = "pygame_essentials.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-pygame_toolkit = ["py.typed"]
+pygame_essentials = ["py.typed"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "src/pygame_toolkit"]
+testpaths = ["tests", "src/pygame_essentials"]
 addopts = "--doctest-modules"
