@@ -28,4 +28,5 @@ Homepage = "https://github.com/ethandadev/pygame-kit"
 where = ["src"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "src/pygame_kit"]
+addopts = "--doctest-modules"
