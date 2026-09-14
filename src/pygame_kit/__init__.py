@@ -16,7 +16,9 @@ from .ui import (
 )
 from .animation import Animation, AnimationSet, Spritesheet
 from .camera import Camera
+from .debug import DebugOverlay
 from .particles import Particle, ParticleEmitter
+from .save import SaveData, default_save_folder
 from .timing import Cooldown, Timer
 
 __version__ = "0.1.0"
@@ -30,4 +32,6 @@ __all__ = [
     "Timer", "Cooldown",
     # Graphics
     "Spritesheet", "Animation", "AnimationSet", "Camera", "ParticleEmitter", "Particle",
+    # Extras
+    "SaveData", "default_save_folder", "DebugOverlay",
 ]
